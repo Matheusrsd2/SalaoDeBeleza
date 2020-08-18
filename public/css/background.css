@@ -1,0 +1,25 @@
+body{
+    background-image: url(../img/sky.jpg);
+    background-position: auto;
+    text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    
+}
+
+.navbar {
+    background-image: url(../img/tech.jpg);
+	height: 74px; 
+}
+
+div#icons{
+    position: absolute; left:50%; top:10px;
+}
+
+section#area{
+    position: absolute; left:78%;
+}
+
+section#fundo{
+    background-image: url(../img/tech2.jpg);
+    position: absolute; width:100%;
+}
