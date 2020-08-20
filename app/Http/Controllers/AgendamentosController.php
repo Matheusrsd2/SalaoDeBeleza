@@ -66,13 +66,17 @@ class AgendamentosController extends Controller
         try {
             $nome = $request->input('nome');
             $chave = $request->input('chave_acesso'); 
+
+            //verifica se os requests possuem o mesmo valor no banco para autorizar acesso
             $checknome = DB::select("select nome from permissao where nome = '$nome'");
             $checkchave = DB::select("select chave_acesso from permissao where chave_acesso ='$chave'");
 
+            //se diferente de null, acesso adm autorizado
             if($checknome && $checkchave != null)
             {
                 return $this->index();
             }
+            //senao, acesso nao autorizado, retorna para a home com a mensagem de erro
             else {
                 return redirect('/home')->with('unauthorized','Acesso Negado. Tente Novamente');
             }  
@@ -83,12 +87,16 @@ class AgendamentosController extends Controller
 
     //Dashboard Gerencial para o admin
     public function index() {
+
+        //Pegando todos os registros de agendamento do banco e contando a quantidade
         $agend = DB::select("SELECT * from agendamentos order by created_at desc");
         $count = count($agend);
-
+       
+        //Contando a quantidade de agendamentos na ultima semana
         $totalSemanal = DB::select("SELECT * FROM agendamentos WHERE data BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE()");
         $count2 = count($totalSemanal);
 
+        //verificando quais os serviços mais procurados na ultima semana e agrupando-os
         $servicosSemanal = DB::select("SELECT count(servico) as total, servico 
             FROM agendamentos WHERE data BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE()
             GROUP BY servico ORDER BY total DESC");
@@ -96,7 +104,7 @@ class AgendamentosController extends Controller
         return view('admin', compact('agend', 'count', 'count2', 'servicosSemanal'));
     }
 
-    //Cancela Agendamento
+    //Conclui Agendamento
     public function concluir (){
         $id = \Request::route('id');
         $a = new Agendamento();
@@ -106,6 +114,7 @@ class AgendamentosController extends Controller
         return redirect()->back();
     }
 
+    //Cancela Agendamento
     public function cancelar (Request $request){
         $id = \Request::route('id');
         $a = new Agendamento();
@@ -114,6 +123,7 @@ class AgendamentosController extends Controller
         return redirect()->back();
     }
 
+    //Gera relatório pdf com os dados de agendamento
     public function gerarPdf() {
         $agend = DB::select("select * from agendamentos order by created_at desc");
         $count = count($agend);
