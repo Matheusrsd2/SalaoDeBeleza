@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Agendamentos extends Migration
+class Permissao extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class Agendamentos extends Migration
      */
     public function up()
     {
-        Schema::create('agendamentos', function (Blueprint $table) {
+        Schema::create('permissao', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->enum('status', ['novo', 'cancelado'])->default('novo');
-            $table->string('nome_cliente');
-            $table->date('data');
-            $table->time('hora');
-            $table->timestamps();
+            $table->string('nome');
+            $table->string('chave_acesso');
         });
     }
 

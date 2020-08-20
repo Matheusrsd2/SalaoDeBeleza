@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Agendamento;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $agend = Agendamento::all();
-        return view('home' , compact($agend, 'agend'));
+        return view('home');
     }
 }
