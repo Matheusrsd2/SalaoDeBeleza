@@ -86,11 +86,11 @@ class AgendamentosController extends Controller
         $agend = DB::select("SELECT * from agendamentos order by created_at desc");
         $count = count($agend);
 
-        $totalSemanal = DB::select("SELECT id FROM agendamentos WHERE created_at BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE()");
+        $totalSemanal = DB::select("SELECT * FROM agendamentos WHERE data BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE()");
         $count2 = count($totalSemanal);
 
         $servicosSemanal = DB::select("SELECT count(servico) as total, servico 
-            FROM agendamentos WHERE created_at BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE()
+            FROM agendamentos WHERE data BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE()
             GROUP BY servico ORDER BY total DESC");
  
         return view('admin', compact('agend', 'count', 'count2', 'servicosSemanal'));

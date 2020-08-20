@@ -24,7 +24,7 @@
         </a></p>
     <center>
         <h5><b>Total Acumulado: {{$count}} Agendamentos</b></h5>
-        <p>Total de agendamentos feitos na Ultima Semana: {{$count2}}</p>
+        <p>Total de agendamentos marcados na Ultima Semana: {{$count2}}</p>
     </center>
     <center><h7>Ordenado pelos Mais Recentes</h7></center>
 
