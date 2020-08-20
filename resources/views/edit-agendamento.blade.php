@@ -17,15 +17,15 @@
                             <div class="col-sm-4">
                                 <label>Novo Serviço</label>
                                 <input type="text" name="servico" class="form-control" value="{{$agend->servico}}">
-                            </div><br><br>
+                            </div>
                             <div class="col-sm-4">
                                 <label>Nova Data</label>
                                 <input type="date" name="data" class="form-control" value="{{$agend->data}}">
-                            </div><br>
+                            </div>
                             <div class="col-sm-3">
                                 <label>Horário</label>
                                 <input type="time" name="hora" class="form-control" value="{{$agend->hora}}">
-                            </div><br><br><br><br><br>
+                            </div><br>
                             <center><button class="btn btn-primary">Alterar</button><center>
                         </form>
                     </div>

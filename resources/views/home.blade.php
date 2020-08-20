@@ -108,7 +108,7 @@
 
         <!-- MODAL PARA ACESSO ADM !-->
         <div class="modal fade" id="admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <form action="/permissao" method="post">
+            <form action="/permissao" method="get">
                 <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

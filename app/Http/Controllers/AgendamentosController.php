@@ -7,6 +7,7 @@ use App\Permissao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use PDF;
 
 class AgendamentosController extends Controller
 {
@@ -61,7 +62,7 @@ class AgendamentosController extends Controller
     }
 
     //Autenticação do Adm e listagem de agendamentos
-    public function index (Request $request) {
+    public function authorizeAdmin (Request $request) {
         try {
             $nome = $request->input('nome');
             $chave = $request->input('chave_acesso'); 
@@ -70,9 +71,7 @@ class AgendamentosController extends Controller
 
             if($checknome && $checkchave != null)
             {
-                $agend = Agendamento::all();
-                $count = count($agend);
-                return view('admin', compact('agend', 'count'));
+                return $this->index();
             }
             else {
                 return redirect('/home')->with('unauthorized','Acesso Negado. Tente Novamente');
@@ -82,19 +81,37 @@ class AgendamentosController extends Controller
         }
     }
 
+    //listar todos os agendamentos para o admin
+    public function index() {
+        $agend = DB::select("select * from agendamentos order by created_at desc");
+        $count = count($agend);
+        return view('admin', compact('agend', 'count'));
+    }
+
     //Cancela Agendamento
-    public function concluir (Request $request){
-        $id = $request->input('id');
+    public function concluir (){
+        $id = \Request::route('id');
         $a = new Agendamento();
         $status = $a->where('id', '=', $id)
         ->update(['status' => 'concluido']);
+
+        return redirect()->back();
     }
 
     public function cancelar (Request $request){
-        $id = $request->input('id');
+        $id = \Request::route('id');
         $a = new Agendamento();
         $status = $a->where('id', '=', $id)
         ->update(['status' => 'cancelado']);
+        return redirect()->back();
+    }
+
+    public function gerarPdf() {
+        $agend = DB::select("select * from agendamentos order by created_at desc");
+        $count = count($agend);
+        $pdf = PDF::loadView('relatorio', compact('agend', 'count'));
+        
+        return $pdf->setPaper('a4')->stream('relatorio.pdf');
     }
 
 }

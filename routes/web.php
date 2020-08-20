@@ -22,11 +22,12 @@ Route::post('/agendamento/novo', 'AgendamentosController@store');
 Route::get('/agendamento/alterar/{id}', 'AgendamentosController@edit');
 Route::post('/agendamento/update', 'AgendamentosController@update');
 Route::get('/agendamento/historico', 'AgendamentosController@historico');
-Route::post('/agendamento/cancelar', 'AgendamentosController@cancelar');
-Route::post('/agendamento/concluir', 'AgendamentosController@concluir');
+Route::get('/agendamento/cancelar/{id}', 'AgendamentosController@cancelar');
+Route::get('/agendamento/concluir/{id}', 'AgendamentosController@concluir');
+Route::get('/gerarpdf', 'AgendamentosController@gerarPdf');
 
 //Rotas para permissao Admin
-Route::post('/permissao', 'AgendamentosController@index');
+Route::get('/permissao', 'AgendamentosController@authorizeAdmin');
 
 //Rotas Auth Scaffolding
 Auth::routes();

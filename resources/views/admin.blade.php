@@ -2,8 +2,12 @@
 
 @section('content')
 
+<center><a href="/gerarpdf">
+            <button type="button" class="btn btn-info">Clique aqui para gerar Relatório de Agendamentos</button></center>
+        </a>
 <center><h5>Total: {{$count}} Agendamentos</h5></center>
-<table class="table table-bordered table-dark bg-info">
+<center><h7>Ordenado pelos Mais Recentes</h7></center>
+<table class="table table-bordered table-dark bg-primary">
     <thead>
         <tr>
             <th>Status</th>
@@ -25,22 +29,22 @@
             <td>{{$a->hora}} </td>
             <td>{{$a->created_at}} </td>
             <td>
-                <form action="agendamento/concluir" method="post">
-                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                    <input type="hidden" name="id" value="{{$a->id}}"/>
+                <a href="javascript: if(confirm('Tem certeza que deseja CONCLUIR ESSE ATENDIMENTO?')) 
+                            location.href='agendamento/concluir/{{$a->id}}'">
                     <button class="btn btn-success">
-                        <i class="small material-icons">check</i>
+                        <i class="medium material-icons">check</i>
                     </button>
-                </form>
-                <form action="agendamento/cancelar" method="post">
-                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                    <input type="hidden" name="id" value="{{$a->id}}"/>
+                </a>
+                <a href="javascript: if(confirm('Tem certeza que deseja CANCELAR?')) 
+                            location.href='agendamento/cancelar/{{$a->id}}'">
                     <button class="btn btn-danger">
-                        <i class="small material-icons">close</i>
+                        <i class="medium material-icons">close</i>
                     </button>
-                </form>
+                </a>
                 <a href="agendamento/alterar/{{$a->id}}">
-                    <i class="large material-icons">edit</i>
+                    <button class="btn btn-info">
+                        <i class="medium material-icons">edit</i>
+                    </button>
                 </a>
                 </td>
             </tr>
